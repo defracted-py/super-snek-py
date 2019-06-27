@@ -7,7 +7,6 @@ author = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is 
 from tkinter import *
 import time
 import random
-from tkinter.font import Font
 
 ###############
 ### ФУНКЦИИ ###
@@ -257,9 +256,7 @@ while win:
 
 # Отрисовка изображений победы и поражения
 if win is False and score < win_score:
-    comic_sans = Font(family="Comic Sans MS",size=42,weight="bold")
     canvas.create_image(402, 302, image=lose_img)
-    canvas.create_text(390, 450, font=comic_sans, fill="white", text=f"ваш счёт: {score}")
 if win is False and score == win_score:
     canvas.create_image(402, 302, image=win_img)
 
