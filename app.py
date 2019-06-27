@@ -1,4 +1,4 @@
-__author__ = 'The app was made by Defracted\nGitHub: @runic-tears\n\nThe app is completely free and can be edited, just download it from the repository'
+__author__ = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
 
 ##################
 ### БИБЛИОТЕКИ ###
@@ -146,7 +146,7 @@ canvas.pack()
 root.title("Super Snek")  # Название окна
 root.resizable(False, False)  # Убирает возможность изменять размер окна
 
-root.bind("<Right>", right)
+root.bind("<Right>", right)  # Слушатель нажатий передвижения, стрелочки
 root.bind("<Left>", left)
 root.bind("<Up>", up)
 root.bind("<Down>", down)
@@ -168,15 +168,15 @@ table_y = [11, 11, 11]
 speed = 0.3
 
 # Счётчик очков
-score = 0  # Текущий
-win_score = 50  # Необходимый для победы
+score = 0  # Стандартный, первоначальный счёт
+win_score = 50  # Необходимый счёт для победы
 
 # Перменные, позволяющие выполнять функцию паузы и основной цикл
 isStopped = False
 win = True
 
 # Переменная, применяаемая для дебага/теста игры, функция для разработчиков
-logThingsToConsole = False
+logThingsToConsole = True
 
 # Стандартные перменные для направления змеи
 dir_x = -1
@@ -188,26 +188,6 @@ bonus_x, bonus_y = random.randint(1, 28), random.randint(0, 21)
 
 # Основной цикл всего приложения
 while win:
-    # Увеличвает скорость, при увеличении счёта - усложнение игры
-    if score in range(2, 10):
-        speed = 0.275
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-    elif score in range(10, 20):
-        speed = 0.25
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-    elif score in range(20, 30):
-        speed = 0.225
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-    elif score in range(30, 40):
-        speed = 0.2
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-    elif score in range(40, 45):
-        speed = 0.15
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-    elif score in range(45, 99999):
-        speed == 0.1
-        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
-
     # Проверяем, не врезалась ли змея в стены
     if (table_x[0] == 0) and (dir_x == -1):
         win = False
@@ -246,6 +226,26 @@ while win:
     for i in range(1, len(table_x)):
         if (table_x[0] == table_x[i]) and (table_y[0] == table_y[i]):
             win = False
+
+    # Увеличвает скорость, при увеличении счёта - усложнение игры
+    if score in range(2, 10):
+        speed = 0.275
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(10, 20):
+        speed = 0.25
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(20, 30):
+        speed = 0.225
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(30, 40):
+        speed = 0.2
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(40, 45):
+        speed = 0.15
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(45, 99999):
+        speed == 0.1
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
 
     draw_all()
     time.sleep(speed)
