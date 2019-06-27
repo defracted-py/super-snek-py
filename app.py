@@ -208,9 +208,8 @@ while win:
 
     # Процесс «поедания» бонусных яблок
     if (table_x[0] == bonus_x) and (table_y[0] == bonus_y):
-        for i in range(0, 2):
-            table_x.append(1)
-            table_y.append(1)
+        table_x.append(1)
+        table_y.append(1)
         bonus_x, bonus_y = random.randint(0, 29), random.randint(0, 21)
         score += 2
         if logThingsToConsole is True: print(f'Количество очков: {score}')
