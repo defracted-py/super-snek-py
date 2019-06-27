@@ -1,4 +1,4 @@
-__author__ = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
+author = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
 
 ##################
 ### БИБЛИОТЕКИ ###
@@ -263,4 +263,4 @@ if win is False and score == win_score:
 
 root.mainloop()
 
-print(__author__)
+print(author)
