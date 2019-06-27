@@ -17,8 +17,17 @@ import random
 def draw_all():
     draw_field()
     draw_food()
+    draw_bonus()
     draw_snake()
     canvas.update()
+
+
+# Отрисовка бонуса
+def draw_bonus():
+    global score
+    if (score % 10 == 0) and (score != 0):
+        canvas.create_oval((bonus_x + 1) * 25, (bonus_y + 1) * 25, (bonus_x + 2) * 25, (bonus_y + 2) * 25, fill="#ffe02e",
+                           outline="#e3c309")
 
 
 # Отрисовывает один элемент змеи
@@ -66,7 +75,7 @@ def cheat_win(event):
 def cheat_add_point(event):
     global score, logThingsToConsole
     score += 1
-    
+
     if logThingsToConsole is True:
         print(f"[CHEAT] Увеличено количество оков, новое кол-во: {score}")
 
@@ -175,6 +184,7 @@ dir_y = 0
 
 # Генерирует первое яблоко на карте
 food_x, food_y = random.randint(1, 28), random.randint(0, 21)
+bonus_x, bonus_y = random.randint(1, 28), random.randint(0, 21)
 
 # Основной цикл всего приложения
 while win:
@@ -214,6 +224,15 @@ while win:
         table_y.append(1)
         food_x, food_y = random.randint(0, 29), random.randint(0, 21)
         score += 1
+        if logThingsToConsole is True: print(f'Количество очков: {score}')
+
+    # Процесс «поедания» бонусных яблок
+    if (table_x[0] == bonus_x) and (table_y[0] == bonus_y):
+        for i in range(0, 2):
+            table_x.append(1)
+            table_y.append(1)
+        bonus_x, bonus_y = random.randint(0, 29), random.randint(0, 21)
+        score += 2
         if logThingsToConsole is True: print(f'Количество очков: {score}')
 
     # Проверяем, выолняется ли функция паузы
