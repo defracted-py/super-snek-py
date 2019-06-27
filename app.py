@@ -38,18 +38,37 @@ def draw_snake():
 
 # Увелчивает скорость передвижения змеи, необходимо для более просто тестирования
 def speed_up(event):
-    print("Ускоряемся...")
-    global speed
-    speed = 0.05
-    print(f"Скорость обновления {speed} секунд")
+    global speed, logThingsToConsole
+
+    if logThingsToConsole is True:
+        print("[CHEAT] Ускоряемся...")
+
+    speed = 0.01
+
+    if logThingsToConsole is True:
+        print(f"[CHEAT] Скорость обновления {speed} секунд")
 
 
 # Немедленно повышает количество очков, чтобы победить
 def cheat_win(event):
-    print("Выполняем чит-функцию победы, жесть вы ЧиТоР, товарищ...")
-    global score, win_score
+    global score, win_score, logThingsToConsole
+
+    if logThingsToConsole is True:
+        print("[CHEAT] Выполняем чит-функцию победы, жесть вы ЧиТоР, товарищ...")
+
     score = win_score
-    print(f"Функция выполнена, кол-во очков: {score}")
+
+    if logThingsToConsole is True:
+        print(f"[CHEAT] Функция выполнена, кол-во очков: {score}")
+
+
+# Увеличивает количество очков на одну единицу
+def cheat_add_point(event):
+    global score, logThingsToConsole
+    score += 1
+    
+    if logThingsToConsole is True:
+        print(f"[CHEAT] Увеличено количество оков, новое кол-во: {score}")
 
 
 # Поворачивает передвижении змеи в правую сторону
@@ -125,6 +144,7 @@ root.bind("<Down>", down)
 root.bind("<Escape>", stop)
 root.bind(["<d>", "<i>", "<e>"], speed_up)
 root.bind(["<e>", "<z>", "<w>", "<i>", "<n>"], cheat_win)
+root.bind(["<p>", "<o>", "<i>", "<n>", "<t>", "<s>"], cheat_add_point)
 
 
 # Подключаем картинки победы и проигрыша
@@ -136,15 +156,18 @@ table_x = [14, 15, 16]
 table_y = [11, 11, 11]
 
 # Стандартная скорость змеи, может быть изменено
-speed = 0.2
+speed = 0.3
 
 # Счётчик очков
 score = 0  # Текущий
-win_score = 15  # Необходимый для победы
+win_score = 50  # Необходимый для победы
 
 # Перменные, позволяющие выполнять функцию паузы и основной цикл
 isStopped = False
 win = True
+
+# Переменная, применяаемая для дебага/теста игры, функция для разработчиков
+logThingsToConsole = False
 
 # Стандартные перменные для направления змеи
 dir_x = -1
@@ -155,6 +178,26 @@ food_x, food_y = random.randint(1, 28), random.randint(0, 21)
 
 # Основной цикл всего приложения
 while win:
+    # Увеличвает скорость, при увеличении счёта - усложнение игры
+    if score in range(2, 10):
+        speed = 0.275
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(10, 20):
+        speed = 0.25
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(20, 30):
+        speed = 0.225
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(30, 40):
+        speed = 0.2
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(40, 45):
+        speed = 0.15
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+    elif score in range(45, 99999):
+        speed == 0.1
+        if logThingsToConsole is True: print(f"Скорость: {speed} | Счёт: {score}")
+
     # Проверяем, не врезалась ли змея в стены
     if (table_x[0] == 0) and (dir_x == -1):
         win = False
@@ -171,9 +214,9 @@ while win:
         table_y.append(1)
         food_x, food_y = random.randint(0, 29), random.randint(0, 21)
         score += 1
-        print(f'Количество очков: {score}')
+        if logThingsToConsole is True: print(f'Количество очков: {score}')
 
-    # ПРоверяем, выолняется ли функция паузы
+    # Проверяем, выолняется ли функция паузы
     if not isStopped:
         table_x = [table_x[0] + dir_x] + table_x
         table_y = [table_y[0] + dir_y] + table_y
