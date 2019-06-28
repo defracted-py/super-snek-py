@@ -1,8 +1,10 @@
 author = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
 
+
 ##################
 ### БИБЛИОТЕКИ ###
 ##################
+
 
 from tkinter import *
 import time
@@ -13,6 +15,7 @@ from tkinter.font import Font
 ##########################
 from pypresence import Presence # Библиотеки, для подключения статуса в Discord
 import time
+
 
 ###############
 ### ФУНКЦИИ ###
