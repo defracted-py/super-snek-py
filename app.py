@@ -1,4 +1,4 @@
-author = 'The app was made by Defracted,py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
+author = 'The app was made by Defracted-py\nGitHub: @defracted-py\n\nThe app is completely free and can be edited, just download it from the repository'
 
 ##################
 ### БИБЛИОТЕКИ ###
