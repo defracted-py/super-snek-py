@@ -8,6 +8,11 @@ from tkinter import *
 import time
 import random
 from tkinter.font import Font
+##########################
+### DISCORD ИНТЕГРАЦИЯ ###
+##########################
+from pypresence import Presence # Библиотеки, для подключения статуса в Discord
+import time
 
 ###############
 ### ФУНКЦИИ ###
@@ -178,6 +183,7 @@ win = True
 
 # Переменная, применяаемая для дебага/теста игры, функция для разработчиков
 logThingsToConsole = True
+logDiscordThingsToConsole = False
 
 # Стандартные перменные для направления змеи
 dir_x = -1
@@ -186,6 +192,16 @@ dir_y = 0
 # Генерирует первое яблоко на карте
 food_x, food_y = random.randint(1, 28), random.randint(0, 21)
 bonus_x, bonus_y = random.randint(1, 28), random.randint(0, 21)
+
+# DISCORD HANDSHAKE
+try:
+    client_id = '594064296854683650'
+    RPC = Presence(client_id)
+    RPC.connect()
+    # Обновление статуса в Discord
+    print(RPC.update(state=f"Счёт: {score}", large_image="icon", details="Начинает игру"))
+except Exception:
+    print('Discord not found')
 
 # Основной цикл всего приложения
 while win:
@@ -251,6 +267,13 @@ while win:
     time.sleep(speed)
     canvas.delete('all')
 
+    # Обновление статуса в Discord
+    try:
+        RPC.update(state=f"Счёт: {score}", details="В игре", large_image="icon")
+    except Exception:
+        if logDiscordThingsToConsole is True: 
+            print('Discord client not found or something went wrong...')
+
     # Проверяем, набрали ли пользователь необходимое количество очков для победы
     if score == win_score:
         win = False
@@ -260,8 +283,23 @@ if win is False and score < win_score:
     comic_sans = Font(family="Comic Sans MS",size=42,weight="bold")
     canvas.create_image(402, 302, image=lose_img)
     canvas.create_text(390, 450, font=comic_sans, fill="white", text=f"ваш счёт: {score}")
+
+    # Обновление статуса в Discord
+    try:
+        RPC.update(state=f"Счёт: {score}", details="Поражение...", large_image="icon")
+    except Exception:
+        if logDiscordThingsToConsole is True: 
+            print('Discord client not found or something went wrong...')
+    
 if win is False and score == win_score:
     canvas.create_image(402, 302, image=win_img)
+
+    # Обновление статуса в Discord
+    try: 
+        RPC.update(state=f"Счёт: {score}", details="Победа!", large_image="icon")
+    except Exception:
+        if logDiscordThingsToConsole is True: 
+            print('Discord client not found or something went wrong...')
 
 root.mainloop()
 
