@@ -130,7 +130,7 @@ def draw_field():
     global score
     canvas.create_rectangle(0, 0, 32*25, 24*25, fill="#617c52")
     canvas.create_rectangle(25, 25, 31*25, 23*25, fill="#789965", outline='#789965')
-    canvas.create_text(30, 13, text=f"СЧЁТ: {score}", font="Impact 14", fill="white")
+    canvas.create_text(30, 13, text=f"SCORE: {score}", font="Impact 14", fill="white")
 
 
 # Создание еды для змейки
